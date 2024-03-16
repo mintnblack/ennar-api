@@ -16,3 +16,16 @@ class CallbackSchema(BaseModel):
 class UpdateCallbackSchema(BaseModel):
     status: int = Field()
     updated: datetime = Field(default=datetime.now().astimezone(tz))
+
+
+def callback_helper(cb) -> dict:
+    return {
+        "id": str(cb["_id"]),
+        "name": cb["name"],
+        "email": cb["email"],
+        "phone": cb["phone"],
+        "message": cb["message"],
+        "status": cb["status"],
+        "created": cb["created"],
+        "updated": cb["updated"]
+    }

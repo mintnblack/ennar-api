@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 import calendar
 
 from .blog import retrieve_blogs_for_category
-from ..helpers import category_helper
+from ..models.category import category_helper
 
 load_dotenv('.env')
 client = motor.motor_asyncio.AsyncIOMotorClient(os.getenv('MONGO_DETAILS'))

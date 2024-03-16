@@ -16,6 +16,12 @@ from .routes.blog import router as blog_router
 
 from .routes.image import router as image_router
 
+from .routes.day import router as day_router
+
+from .routes.clinic import router as clinic_router
+
+from .routes.timeslot import router as slot_router
+
 app = FastAPI()
 
 app.add_middleware(
@@ -45,5 +51,11 @@ app.include_router(feedback_router, tags=["feedback"], prefix="/feedback")
 app.include_router(category_router, tags=["category"], prefix="/category")
 
 app.include_router(blog_router, tags=["blog"], prefix="/blog")
+
+app.include_router(clinic_router, tags=["clinic"], prefix="/clinic")
+
+app.include_router(day_router, tags=["day"], prefix="/day")
+
+app.include_router(slot_router, tags=["timeslot"], prefix="/timeslot")
 
 app.include_router(image_router, tags=['image'], prefix='/image')

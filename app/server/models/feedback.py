@@ -17,3 +17,17 @@ class FeedbackSchema(BaseModel):
 class UpdateFeedbackSchema(BaseModel):
     status: int = Field(...)
     updated: datetime = Field(default=datetime.now().astimezone(tz))
+
+
+def feedback_helper(fb) -> dict:
+    return {
+        "id": str(fb["_id"]),
+        "name": fb["name"],
+        "email": fb["email"],
+        "phone": fb["phone"],
+        "treatment": fb["treatment"],
+        "feedback": fb["feedback"],
+        "status": fb["status"],
+        "created": fb["created"],
+        "updated": fb["updated"]
+    }

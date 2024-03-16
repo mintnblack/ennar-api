@@ -15,3 +15,13 @@ class CategorySchema(BaseModel):
 class UpdateCategorySchema(BaseModel):
     name: str = Field(...)
     updated: datetime = Field(default=datetime.now().astimezone(tz))
+
+
+def category_helper(cat) -> dict:
+    return {
+        "id": str(cat["_id"]),
+        "name": cat["name"],
+        "blogs": cat["blogs"],
+        "created": cat["created"],
+        "updated": cat["updated"]
+    }

@@ -5,7 +5,7 @@ from bson.objectid import ObjectId
 from fastapi import BackgroundTasks
 from dotenv import load_dotenv
 import calendar
-from ..helpers import feedback_helper
+from ..models.feedback import feedback_helper
 
 load_dotenv('.env')
 client = motor.motor_asyncio.AsyncIOMotorClient(os.getenv('MONGO_DETAILS'))
