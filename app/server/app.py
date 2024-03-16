@@ -1,5 +1,9 @@
 from fastapi import FastAPI
 
+from .auth import router as auth_router
+
+from .routes.user import router as user_router
+
 from fastapi.middleware.cors import CORSMiddleware
 
 from .routes.callback import router as callback_router
@@ -9,6 +13,9 @@ from .routes.feedback import router as feedback_router
 from .routes.category import router as category_router
 
 from .routes.blog import router as blog_router
+
+from .routes.image import router as image_router
+
 app = FastAPI()
 
 app.add_middleware(
@@ -26,6 +33,11 @@ async def read_root():
 
 
 # define routers
+
+app.include_router(auth_router, tags=["auth"], prefix="/auth")
+
+app.include_router(user_router, tags=['user'], prefix='/user')
+
 app.include_router(callback_router, tags=["callback"], prefix="/callback")
 
 app.include_router(feedback_router, tags=["feedback"], prefix="/feedback")
@@ -33,3 +45,5 @@ app.include_router(feedback_router, tags=["feedback"], prefix="/feedback")
 app.include_router(category_router, tags=["category"], prefix="/category")
 
 app.include_router(blog_router, tags=["blog"], prefix="/blog")
+
+app.include_router(image_router, tags=['image'], prefix='/image')

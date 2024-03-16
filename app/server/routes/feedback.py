@@ -1,6 +1,10 @@
-from fastapi import APIRouter, Body
+from fastapi import APIRouter, Body, Depends, status, HTTPException
+
+from typing import Annotated
 
 from fastapi.encoders import jsonable_encoder
+
+from ..auth import get_current_user
 
 from ..databases.feedback import (
     add_feedback,
@@ -20,7 +24,9 @@ router = APIRouter()
 
 
 @router.post("/", response_description="feedback added")
-async def add_feedback_(data: FeedbackSchema = Body(...)):
+async def add_feedback_(current_user: Annotated[dict, Depends(get_current_user)], data: FeedbackSchema = Body(...)):
+    if current_user is None:
+        raise HTTPException(status.HTTP_401_UNAUTHORIZED)
     feedback = jsonable_encoder(data)
     new_feedback = await add_feedback(feedback)
     return ResponseModel(new_feedback, "feedback added")
