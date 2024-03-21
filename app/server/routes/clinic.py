@@ -8,8 +8,8 @@ router = APIRouter()
 
 
 @router.post("/", response_description="clinic added.")
-async def add_clinic_(clinic: ClinicSchema = Body(...)):
-    clinic = jsonable_encoder(clinic)
+async def add_clinic_(data: ClinicSchema = Body(...)):
+    clinic = jsonable_encoder(data)
     new_clinic = await add_clinic(clinic)
     return ResponseModel(new_clinic, "clinic added.")
 

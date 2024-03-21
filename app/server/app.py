@@ -22,6 +22,10 @@ from .routes.clinic import router as clinic_router
 
 from .routes.timeslot import router as slot_router
 
+from .routes.product import router as product_router
+
+from .routes.prescription import router as prescription_router
+
 app = FastAPI()
 
 app.add_middleware(
@@ -59,3 +63,7 @@ app.include_router(day_router, tags=["day"], prefix="/day")
 app.include_router(slot_router, tags=["timeslot"], prefix="/timeslot")
 
 app.include_router(image_router, tags=['image'], prefix='/image')
+
+app.include_router(product_router, tags=['product'], prefix='/product')
+
+app.include_router(prescription_router, tags=['prescription'], prefix='/prescription')
