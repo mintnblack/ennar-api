@@ -36,6 +36,8 @@ async def delete_feedback(id: str):
         deleted = await feedback_collection.delete_one({"_id": ObjectId(id)})
         if deleted:
             return True
+    else:
+        return False
 
 
 async def bulk_delete_feedback(data: list[str]):

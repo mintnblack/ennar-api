@@ -26,6 +26,8 @@ from .routes.product import router as product_router
 
 from .routes.prescription import router as prescription_router
 
+from .routes.appointment import router as appointment_router
+
 app = FastAPI()
 
 app.add_middleware(
@@ -67,3 +69,5 @@ app.include_router(image_router, tags=['image'], prefix='/image')
 app.include_router(product_router, tags=['product'], prefix='/product')
 
 app.include_router(prescription_router, tags=['prescription'], prefix='/prescription')
+
+app.include_router(appointment_router, tags=['appointment'], prefix='/appointment')

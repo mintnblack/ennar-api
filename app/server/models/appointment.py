@@ -14,7 +14,7 @@ class AppointmentSchema(BaseModel):
     user: UsersSchema = Field(default=None)
     clinic: ClinicSchema = Field(default=None)
     prescription: PrescriptionSchema = Field(default=None)
-    timeslot_id = str = Field(default=None)
+    timeslot_id: str = Field(default=None)
     scheduled_date: str = Field(default=None)
     scheduled_slot: str = Field(default=None)
     rejected_reason: int = Field(default=None)
@@ -41,7 +41,7 @@ class AppointmentSchema(BaseModel):
 class UpdateAppointmentSchema(BaseModel):
     status: int = Field(...)
     prescription: PrescriptionSchema = Field(default=None)
-    timeslot_id = str = Field(default=None)
+    timeslot_id:  str = Field(default=None)
     scheduled_date: str = Field(default=None)
     scheduled_slot: str = Field(default=None)
     rejected_reason: str = Field(default=None)

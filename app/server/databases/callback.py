@@ -6,7 +6,7 @@ from fastapi import BackgroundTasks
 from dotenv import load_dotenv
 import calendar
 from ..models.callback import callback_helper
-
+from typing import List
 load_dotenv('.env')
 client = motor.motor_asyncio.AsyncIOMotorClient(os.getenv('MONGO_DETAILS'))
 database = client.data
@@ -38,7 +38,7 @@ async def delete_callback(id: str):
             return True
 
 
-async def bulk_delete_callback(data: list[str]):
+async def bulk_delete_callback(data: List[str]):
     if len(data) < 1:
         return False
     for i in data:

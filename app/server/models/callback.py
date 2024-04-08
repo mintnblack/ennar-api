@@ -6,7 +6,7 @@ from ..utils import timezone as tz
 class CallbackSchema(BaseModel):
     name: str = Field(...)
     email: str = Field(...)
-    phone: int = Field(...)
+    phone: str = Field(...)
     message: str = Field(...)
     status: int = Field(default=0)  # 0 -- callback pending, 1 -- callback completed
     created: datetime = Field(default=datetime.now().astimezone(tz))

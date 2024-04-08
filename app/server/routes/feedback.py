@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Body, Depends, status, HTTPException
 
-from typing import Annotated
+from typing import Annotated, List
 
 from fastapi.encoders import jsonable_encoder
 
@@ -81,7 +81,7 @@ async def delete_feedback_(id: str):
     return ErrorResponseModel("error", 404, "not found")
 
 
-@router.delete("/bulk/", response_description="feedbacks deleted")
+@router.delete("/bulk/delete/", response_description="feedbacks deleted")
 async def bulk_delete_feedback_(data: list[str]):
     deleted = await bulk_delete_feedback(data)
     if deleted:

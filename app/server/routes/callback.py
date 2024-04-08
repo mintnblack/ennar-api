@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Body
 from fastapi.encoders import jsonable_encoder
+from typing import List
 from ..databases.callback import (
     add_callback,
     update_callback,
@@ -72,8 +73,8 @@ async def delete_callback_(id: str):
     return ErrorResponseModel("error", 404, "not found")
 
 
-@router.delete("/bulk/", response_description="callbacks deleted")
-async def bulk_delete_callback_(data: list[str]):
+@router.delete("/bulk/delete/", response_description="callbacks deleted")
+async def bulk_delete_callback_(data: List[str]):
     deleted = await bulk_delete_callback(data)
     if deleted:
         return ResponseModel("success", "callbacks deleted")
