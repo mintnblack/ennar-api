@@ -32,6 +32,13 @@ async def retrieve_appointments():
     return appointments
 
 
+async def retrieve_user_appointments(user_id: str):
+    appointments = []
+    async for appointment in appointment_collection.find({'user_id': user_id}).sort("booking_date", -1):
+        appointments.append(appointment_helper(appointment))
+    return appointments
+
+
 async def search_appointments_by_date(first: str, second: str):
     appointments = []
     async for appointment in appointment_collection.find(

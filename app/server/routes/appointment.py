@@ -15,6 +15,7 @@ from ..databases.appointment import (
     rescheduled_appointments,
     unavailable_appointments,
     bulk_delete_appointment,
+    retrieve_user_appointments,
     search_appointments_by_query_and_date,
     search_appointments_by_date,
     search_appointments_by_query,
@@ -60,6 +61,14 @@ async def retrieve_appointments_():
 @router.get("/date/", response_description="appointments retrieved")
 async def get_appointments_by_date(first: str, second: str):
     appointments = await search_appointments_by_date(first, second)
+    if appointments:
+        return ListResponseModel(appointments, "appointments retrieved")
+    return ListResponseModel(appointments, "empty list")
+
+
+@router.get('/user/{user_id}/', response_description='appointments retrieved')
+async def get_appointments_by_user_id(user_id):
+    appointments = await retrieve_user_appointments(user_id)
     if appointments:
         return ListResponseModel(appointments, "appointments retrieved")
     return ListResponseModel(appointments, "empty list")
