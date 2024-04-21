@@ -13,6 +13,7 @@ class AppointmentSchema(BaseModel):
     status: int = Field(default=0)
     user: UsersSchema = Field(default=None)
     clinic: ClinicSchema = Field(default=None)
+    prescription_id: str = Field(default=None)
     prescription: PrescriptionSchema = Field(default=None)
     timeslot_id: str = Field(default=None)
     scheduled_date: str = Field(default=None)
@@ -40,7 +41,7 @@ class AppointmentSchema(BaseModel):
 # 6 -- emergency_cancel
 class UpdateAppointmentSchema(BaseModel):
     status: int = Field(...)
-    prescription: PrescriptionSchema = Field(default=None)
+    prescription_id: str = Field(default=None)
     timeslot_id:  str = Field(default=None)
     scheduled_date: str = Field(default=None)
     scheduled_slot: str = Field(default=None)
@@ -57,6 +58,7 @@ def appointment_helper(app) -> dict:
         "status": app["status"],
         "user": app["user"],
         "clinic": app["clinic"],
+        "prescription_id": app["prescription_id"],
         "prescription": app["prescription"],
         "timeslot_id": app["timeslot_id"],
         "scheduled_date": app["scheduled_date"],

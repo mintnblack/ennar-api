@@ -16,6 +16,8 @@ from ..databases.user import get_user
 
 from ..databases.clinic import retrieve_clinic
 
+from ..databases.prescription import retrieve_prescription
+
 load_dotenv('.env')
 client = motor.motor_asyncio.AsyncIOMotorClient(os.getenv('MONGO_DETAILS'))
 database = client.data
@@ -255,11 +257,17 @@ async def update_appointment(id: str, data: dict, bg: BackgroundTasks):
     if len(data) < 1:
         return False
     state: str = data.get("status")
+    if state == 5:
+        prescription_id = data.get("prescription_id")
+        p_data = retrieve_prescription(prescription_id)
+        if p_data:
+            data.__setitem__('prescription', p_data)
     app = await appointment_collection.find_one({"_id": ObjectId(id)})
     if app:
         updated_app = await appointment_collection.update_one({"_id": ObjectId(id)}, {"$set": data})
         if updated_app:
             # if state == 5:
+            #
             #     send email
             #     bg.add_task(completed, data)
             return True
