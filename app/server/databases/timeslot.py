@@ -116,19 +116,19 @@ async def list_timeslot(date: str, clinic: str):
     return index
 
 
-async def update_timeslot_to_booked(id: str, date: str):
-    slot = await timeslot_collection.find_one({"_id": ObjectId(id), "date": date})
+async def update_timeslot_to_booked(id: str):
+    slot = await timeslot_collection.find_one({"_id": ObjectId(id)})
     if slot:
         data = {"status": 1}
-        updated = await timeslot_collection.update_one({"_id": ObjectId(id), "date": date}, {"$set": data})
+        updated = await timeslot_collection.update_one({"_id": ObjectId(id)}, {"$set": data})
         if updated:
             return True
 
 
-async def update_timeslot_to_available(id: str, date: str):
-    slot = await timeslot_collection.find_one({"_id": ObjectId(id), "date": date})
+async def update_timeslot_to_available(id: str):
+    slot = await timeslot_collection.find_one({"_id": ObjectId(id)})
     if slot:
         data = {"status": 0}
-        updated = await timeslot_collection.update_one({"_id": ObjectId(id), "date": date}, {"$set": data})
+        updated = await timeslot_collection.update_one({"_id": ObjectId(id)}, {"$set": data})
         if updated:
             return True

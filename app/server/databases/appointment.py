@@ -158,17 +158,17 @@ async def schedule_appointment(id: str, data: dict, bg: BackgroundTasks):
     if len(data) < 1:
         return False
     slot: str = data.get("timeslot_id")
-    date: str = data.get("scheduled_date")
+    # date: str = data.get("scheduled_date")
     state: str = data.get("status")
     app = await appointment_collection.find_one({"_id": ObjectId(id)})
     if app:
         updated_app = await appointment_collection.update_one({"_id": ObjectId(id)}, {"$set": data})
         if updated_app:
             if state == 1:
-                bg.add_task(update_timeslot_to_booked, slot, date)
+                bg.add_task(update_timeslot_to_booked, slot)
                 # send email
                 # bg.add_task(appointment_confirmed, data)
-            return True
+                return True
 
 
 async def reject_appointment(id: str, data: dict, bg: BackgroundTasks):
@@ -213,14 +213,14 @@ async def cancel_scheduled_appointment(id: str, data: dict, bg: BackgroundTasks)
     if len(data) < 1:
         return False
     slot: str = data.get("timeslot_id")
-    date: str = data.get("scheduled_date")
+    # date: str = data.get("scheduled_date")
     state: str = data.get("status")
     app = await appointment_collection.find_one({"_id": ObjectId(id)})
     if app:
         updated_app = await appointment_collection.update_one({"_id": ObjectId(id)}, {"$set": data})
         if updated_app:
             if state == 6:
-                bg.add_task(update_timeslot_to_available, slot, date)
+                bg.add_task(update_timeslot_to_available, slot)
                 # send email
                 # bg.add_task(scheduled_cancel, data)
             return True
@@ -230,14 +230,14 @@ async def cancel_rescheduled_appointment(id: str, data: dict, bg: BackgroundTask
     if len(data) < 1:
         return False
     slot: str = data.get("timeslot_id")
-    date: str = data.get("scheduled_date")
+    # date: str = data.get("scheduled_date")
     state: str = data.get("status")
     app = await appointment_collection.find_one({"_id": ObjectId(id)})
     if app:
         updated_app = await appointment_collection.update_one({"_id": ObjectId(id)}, {"$set": data})
         if updated_app:
             if state == 6:
-                bg.add_task(update_timeslot_to_available, slot, date)
+                bg.add_task(update_timeslot_to_available, slot)
                 # send email
                 # bg.add_task(rescheduled_cancel, data)
             return True
@@ -248,13 +248,13 @@ async def reschedule_appointment(id: str, data: dict, bg: BackgroundTasks):
         return False
     state: str = data.get("status")
     slot: str = data.get("timeslot_id")
-    date: str = data.get("scheduled_date")
+    # date: str = data.get("scheduled_date")
     app = await appointment_collection.find_one({"_id": ObjectId(id)})
     if app:
         updated_app = await appointment_collection.update_one({"_id": ObjectId(id)}, {"$set": data})
         if updated_app:
             if state == 3:
-                bg.add_task(update_timeslot_to_booked, slot, date)
+                bg.add_task(update_timeslot_to_booked, slot)
                 # send email
                 # bg.add_task(rescheduled, data)
             return True
