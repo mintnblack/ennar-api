@@ -266,7 +266,7 @@ async def update_appointment(id: str, data: dict, bg: BackgroundTasks):
     state: str = data.get("status")
     if state == 5:
         prescription_id = data.get("prescription_id")
-        p_data = retrieve_prescription(prescription_id)
+        p_data = await retrieve_prescription(prescription_id)
         if p_data:
             data.__setitem__('prescription', p_data)
     app = await appointment_collection.find_one({"_id": ObjectId(id)})
