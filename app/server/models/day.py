@@ -7,7 +7,7 @@ class DaySchema(BaseModel):
     end: str = Field(...)
     gap: int = Field(...)
     clinic_id: str = Field(...)
-    clinic_name: str = Field(...)
+    # clinic_name: str = Field(...)
 
 
 def day_helper(day) -> dict:
@@ -18,5 +18,5 @@ def day_helper(day) -> dict:
         "end": day["end"],
         "gap": day["gap"],
         "clinic_id": day["clinic_id"],
-        "clinic_name": day["clinic_name"]
+        # "clinic_name": day["clinic_name"]
     }

@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Body
 from fastapi.encoders import jsonable_encoder
-from ..databases.day import add_day, delete_day, retrieve_day, retrieve_days, retrieve_clinics_by_day
+from ..databases.day import add_day, delete_day, retrieve_day, retrieve_days
 from ..models.day import DaySchema
 from ..models.response import ResponseModel, ErrorResponseModel, ListResponseModel
 
@@ -22,12 +22,12 @@ async def retrieve_days_of_clinic(id: str):
     return ListResponseModel(days, "empty list")
 
 
-@router.get("/clinics/", response_description="clinics retrieved")
-async def retrieve_clinics_by_day_(day: str):
-    days = await retrieve_clinics_by_day(day)
-    if days:
-        return ListResponseModel(days, "clinics retrieved")
-    return ListResponseModel(days, "empty list")
+# @router.get("/clinics/", response_description="clinics retrieved")
+# async def retrieve_clinics_by_day_(day: str):
+#     days = await retrieve_clinics_by_day(day)
+#     if days:
+#         return ListResponseModel(days, "clinics retrieved")
+#     return ListResponseModel(days, "empty list")
 
 
 @router.get("/{id}", response_description="day retrieved")

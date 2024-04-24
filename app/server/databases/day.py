@@ -42,11 +42,11 @@ async def retrieve_days(clinic: str):
     return days
 
 
-async def retrieve_clinics_by_day(day: str):
-    days = []
-    async for day in day_collection.find({"day": day}):
-        days.append(day_helper(day))
-    return days
+# async def retrieve_clinics_by_day(day: str):
+#     days = []
+#     async for day in day_collection.find({"day": day}):
+#         days.append(day_helper(day))
+#     return days
 
 
 async def clinic_day(clinic: str, day: str):
